@@ -3,12 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ProSidebarProvider } from "react-pro-sidebar";
+import { MarkersProvider } from './contexts/Markers';
+import { ProjectMarkersProvider } from './contexts/ProjectMarkers'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+    <ProjectMarkersProvider>
+    <MarkersProvider>
+    <ProSidebarProvider>
     <App />
-  </React.StrictMode>
+    </ProSidebarProvider>
+    </MarkersProvider>
+    </ProjectMarkersProvider>
+    
+  
 );
 
 // If you want to start measuring performance in your app, pass a function
