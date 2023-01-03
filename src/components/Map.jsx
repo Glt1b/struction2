@@ -36,6 +36,7 @@ export default function Map(props) {
       createMarker();
       setCreationMode(false);
     }
+
   }, [latlng]);
 
   const MarkerLocator = () => {
@@ -46,25 +47,26 @@ export default function Map(props) {
     });
   };
 
-  const createMarker = () => {
-    if (creationMode) {
-      const id = `${props.user}-${Date.now()}`;
+    
+    const createMarker = () => {
+      if(creationMode){   
+        const id = `${props.user}-${Date.now()}`
+        
+        const obj = { [id]: { 
+          "id": id,
+          "number": "0",
+          "status": "in progress",
+          "location": props.currentLocation,
+          "locationOnDrawing": [latlng[0], latlng[1]],
+          "materialsUsed": [],
+          "measurements": [0, 0],
+          "service": [],
+          "completedBy": "",
+          "comment": "",
+          "photos": [],
+          "photos_after": []
 
-      const obj = {
-        [id]: {
-          id: id,
-          number: "0",
-          status: "in progress",
-          location: props.currentLocation,
-          locationOnDrawing: [latlng[0], latlng[1]],
-          materialsUsed: [],
-          measurements: [0, 0],
-          service: [],
-          completedBy: "",
-          photos: [],
-          photos_after: [],
-        },
-      };
+      }}
 
       postMarker(props.projectName, obj).then((response) => {
         setProjectMarkers(response.data.markers);
@@ -91,26 +93,32 @@ export default function Map(props) {
           url={`data:image/jpeg;base64,${props.image}`}
           bounds={bounds}
         >
-          {markers.map((item) => {
-            return (
-              <DraggableMarker
-                key={item.id}
-                id={item.id}
-                position={item.locationOnDrawing}
-                number={item.number}
-                status={item.status}
-                location={item.location}
-                locationOnDrawing={item.locationOnDrawing}
-                materialUsed={item.materialUsed}
-                measurements={item.measurements}
-                service={item.service}
-                completedBy={item.completedBy}
-                photos={item.photos}
-                photos_after={item.photos_after}
-                projectName={props.projectName}
-              />
-            );
-          })}
+              { markers.map((item) => {
+                return (
+                  <DraggableMarker key={item.id}
+                                   id={item.id}
+                                   position={item.locationOnDrawing}
+                                   number={item.number} 
+                                   status={item.status}
+                                   location={item.location}
+                                   locationOnDrawing={item.locationOnDrawing}
+                                   materialsUsed={item.materialsUsed}
+                                   measurements={item.measurements}
+                                   service={item.service}
+                                   completedBy={item.completedBy}
+                                   photos={item.photos}
+                                   photos_after={item.photos_after}
+                                   currentLocation={props.currentLocation}
+                                   comment={item.comment}
+
+                                   projectName={props.projectName}
+                                   user={props.user}
+                                   materials={props.materials}
+                                   services={props.services}
+                                   
+                                    />
+                )})
+              }
         </ImageOverlay>
 
         <MarkerLocator />
@@ -120,4 +128,5 @@ export default function Map(props) {
       </MapContainer>
     </div>
   );
+
 }

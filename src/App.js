@@ -27,6 +27,7 @@ export default function App() {
     },
   });
 
+
   // contract states
   const [projectName, setProjectName] = useState(false);
   const [locations, setLocations] = useState([]);
@@ -166,12 +167,14 @@ export default function App() {
 
       {currentLocation !== "" && markersFilter ? (
         <Map
-          image={currDrawing}
-          currentLocation={currentLocation}
-          user={user.key}
-          projectName={projectName}
+            currentLocation={currentLocation}
+            user={user.key}
+            projectName={projectName}
+            materials={materials}
+            services={services}
         />
       ) : null}
+
     </div>
   );
 }

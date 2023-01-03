@@ -33,7 +33,7 @@ export const deleteMarker = (projectName, markerId) => {
 export const patchMarker = (projectName, markerId, obj) => {
   const patchBody = obj;
   return beStructionApi.patch(`/${projectName}/${markerId}`, patchBody).then((result) => {
-    console.log(result)
+    return result
   });
 };
 
