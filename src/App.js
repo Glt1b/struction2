@@ -161,6 +161,8 @@ export default function App() {
             currentLocation={currentLocation}
             user={user.key}
             projectName={projectName}
+            materials={materials}
+            services={services}
             />
        ) : null }
 

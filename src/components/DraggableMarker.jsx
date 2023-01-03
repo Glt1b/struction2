@@ -24,11 +24,10 @@ export default function DraggableMarker(props) {
     const [status, setStatus] = useState(props.status);
     const [materialsUsed, setMaterialUsed] = useState(props.materialsUsed);
     const [measurements, setMeasurements] = useState(props.measurements);
-    const [service, setService] = useState(props.service);
+    const [serviceUsed, setServiceUsed] = useState(props.service);
     const [comment, setComment] = useState(props.comment);
     
-
-
+    const availableStatus = ['completed', 'inProgress', 'issue'];
     
     // drag marker handlers
     const eventHandlers = useMemo(() => ({
@@ -72,7 +71,7 @@ export default function DraggableMarker(props) {
           "locationOnDrawing": position,
           "materialsUsed": materialsUsed,
           "measurements": measurements,
-          "service": service,
+          "service": serviceUsed,
           "completedBy": "",
           "comment": comment,
           "photos": [],
@@ -82,8 +81,35 @@ export default function DraggableMarker(props) {
       patchMarker(props.projectName, props.id, obj).then((response) => {
         setProjectMarkers(response.data.markers)
       })
-
   }
+
+  // form handlers
+
+  const handleMaterials = (item) => {
+    let updatedList = [...materialsUsed];
+    if (!materialsUsed.includes(item)) {
+      updatedList = [...materialsUsed, item];
+    } else {
+      updatedList.splice(materialsUsed.indexOf(item), 1);
+    }
+    setMaterialUsed(updatedList);
+  };
+
+  const handleService = (item) => {
+    let updatedList = [...serviceUsed];
+    if (!serviceUsed.includes(item)) {
+      updatedList = [...serviceUsed, item];
+    } else {
+      updatedList.splice(serviceUsed.indexOf(item), 1);
+    }
+    setServiceUsed(updatedList);
+  };
+
+  const handleStatus = (item) => {
+    setStatus(item);
+  };
+
+
 
   return (
     <Marker
@@ -101,29 +127,71 @@ export default function DraggableMarker(props) {
         </span><br/>
 
 
+            <div className="checkList">
+              <div className="title"><b>Status:</b></div>
+              <div className="list-container">
+                 {availableStatus.map((item, index) => (
+               <div key={index}>
+                 <input value={item} type="checkbox" checked={ status.includes(item) ? true : false} onChange={() => handleStatus(item)}/>
+                 <span>{item}</span>
+               </div>
+                ))}
+              </div>
+            </div>
 
-            <label>Number:</label><br/>
+
+
+            <label><b>Number:</b></label><br/>
             <input
                className="input"
                value={number}
                type="text"
                onChange={((e) => {setNumber(e.target.value)})}
                 ></input><br/>
-            <label>Height:</label><br/>
+            
+
+            <div className="checkList">
+              <div className="title"><b>Material used:</b></div>
+              <div className="list-container">
+                 {props.materials.map((item, index) => (
+               <div key={index}>
+                 <input value={item} type="checkbox" checked={ materialsUsed.includes(item) ? true : false} onChange={() => handleMaterials(item)}/>
+                 <span>{item}</span>
+               </div>
+                ))}
+              </div>
+            </div>
+
+
+            <div className="checkList">
+              <div className="title"><b>Services:</b></div>
+              <div className="list-container">
+                 {props.services.map((item, index) => (
+               <div key={index}>
+                 <input value={item} type="checkbox" checked={ serviceUsed.includes(item) ? true : false} onChange={() => handleService(item)}/>
+                 <span>{item}</span>
+               </div>
+                ))}
+              </div>
+            </div>
+
+            <label><b>Height:</b></label><br/>
             <input
                className="input"
                value={measurements[1]}
                type="text"
                onChange={((e) => {setComment([measurements[0], e.target.value])})}
                 ></input><br/>
-            <label>Width:</label><br/>
+            <label><b>Width:</b></label><br/>
+
             <input
                className="input"
                value={measurements[0]}
                type="text"
                onChange={((e) => {setMeasurements([e.target.value, measurements[1]])})}
                 ></input><br/>
-            <label>Comment:</label><br/>
+
+            <label><b>Comment:</b></label><br/>
             <input
                className="input"
                value={comment}

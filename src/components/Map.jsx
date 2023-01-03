@@ -99,7 +99,7 @@ export default function Map(props) {
                                    status={item.status}
                                    location={item.location}
                                    locationOnDrawing={item.locationOnDrawing}
-                                   materialUsed={item.materialUsed}
+                                   materialsUsed={item.materialsUsed}
                                    measurements={item.measurements}
                                    service={item.service}
                                    completedBy={item.completedBy}
@@ -107,8 +107,11 @@ export default function Map(props) {
                                    photos_after={item.photos_after}
                                    currentLocation={props.currentLocation}
                                    comment={item.comment}
+
                                    projectName={props.projectName}
                                    user={props.user}
+                                   materials={props.materials}
+                                   services={props.services}
                                    
                                     />
                 )})
