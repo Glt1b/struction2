@@ -74,30 +74,65 @@ h6 {
   scroll-behavior: smooth;
 }
 
+/*===========FONTS===========*/
+* {
+  font-family: "Switzer";
+}
+
+.App {
+  background: rgb(92, 135, 179);
+  background-image: url("./images/Grid.svg"),
+    linear-gradient(157deg, rgba(92, 135, 179, 1) 3%, rgba(38, 88, 150, 1) 82%);
+
+  height: 100vh;
+}
+
 .App-header {
-  background-color: #282c34;
-  min-height: 10vh;
+  background-color: #d2deeb;
+  min-height: 14vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  font-weight: 500;
+  line-height: 0.95;
+  color: #265896;
+  padding: 25px;
+  z-index: 2;
+}
+
+.struction-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10em;
+}
+
+.dropdown {
+  background: rgba(92, 135, 179, 0.1);
 }
 
 .map {
   background: rgb(92, 135, 179);
-  background: linear-gradient(
-    157deg,
-    rgba(92, 135, 179, 1) 3%,
-    rgba(38, 88, 150, 1) 82%
-  );
+  background-image: url("./images/Grid.svg"),
+    linear-gradient(157deg, rgba(92, 135, 179, 1) 3%, rgba(38, 88, 150, 1) 82%);
   position: absolute;
-  top: 10vh;
+  display: flex;
+  justify-content: center;
+  top: 14vh;
   bottom: 0;
   width: 100vw;
   height: 90%;
   z-index: 1;
+}
+
+.map image {
+  background-color: red;
+  -webkit-box-shadow: 10px 11px 0.5px 1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 11px 0.5px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 11px 0.5px 1px rgba(0, 0, 0, 0.75);
 }
 
 .floorButton {
@@ -112,8 +147,22 @@ h6 {
 }
 
 .create-btn {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
+  position: fixed;
+  bottom: 2em;
+  width: 11em;
   z-index: 400;
+  border-radius: 25px;
+  border: none;
+  padding: 3px 7px;
+  font-weight: 700;
+  background: #f9632b;
+  color: #fff;
+  cursor: pointer;
+  border: solid 2px #f9632b;
+}
+
+.create-btn:hover {
+  background: #fff;
+  color: #f9632b;
+  border: solid 2px #f9632b;
 }
