@@ -18,6 +18,8 @@ export default function DraggableMarker(props) {
     const { markers, setMarkers } = useContext(MarkersContext);
     const { projectMarkers, setProjectMarkers} = useContext(ProjectMarkersContext);
     const markerRef = useRef(null)
+
+    
     
     // drag marker handlers
     const eventHandlers = useMemo(() => ({

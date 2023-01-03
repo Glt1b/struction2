@@ -94,7 +94,7 @@ export default function Map(props) {
                   <DraggableMarker key={item.id}
                                    id={item.id}
                                    position={item.locationOnDrawing}
-                                   number={item.number}
+                                   number={item.number} 
                                    status={item.status}
                                    location={item.location}
                                    locationOnDrawing={item.locationOnDrawing}
