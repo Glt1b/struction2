@@ -87,6 +87,7 @@ export default function Map(props) {
         zoomControl={false}
       >
         <ImageOverlay
+          className="map-image"
           url={`data:image/jpeg;base64,${props.image}`}
           bounds={bounds}
         >
@@ -111,6 +112,7 @@ export default function Map(props) {
             );
           })}
         </ImageOverlay>
+
         <MarkerLocator />
         <button className="create-btn" onClick={() => setCreationMode(true)}>
           {creationMode ? "Click on Map" : "Create new marker"}
