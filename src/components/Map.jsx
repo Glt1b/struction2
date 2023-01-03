@@ -59,6 +59,7 @@ export default function Map(props) {
           "measurements": [0, 0],
           "service": [],
           "completedBy": "",
+          "comment": "",
           "photos": [],
           "photos_after": []
 
@@ -104,7 +105,10 @@ export default function Map(props) {
                                    completedBy={item.completedBy}
                                    photos={item.photos}
                                    photos_after={item.photos_after}
+                                   currentLocation={props.currentLocation}
+                                   comment={item.comment}
                                    projectName={props.projectName}
+                                   user={props.user}
                                    
                                     />
                 )})
