@@ -4,15 +4,18 @@ import { Marker, Popup } from "react-leaflet";
 import { MarkersContext } from "../contexts/Markers.js"
 import { ProjectMarkersContext } from "../contexts/ProjectMarkers.js"
 import "leaflet/dist/leaflet.css";
-import marker from "../images/map-marker.svg";
 import "leaflet/dist/leaflet.css";
 import { deleteMarker, getImage, patchMarker } from "../utils/api";
 import ImageUploading from "react-images-uploading";
 import NewWindow from 'react-new-window'
-
+import marker from "../images/map-marker.svg";
+import marker1 from "../images/map-marker-issue.svg";
+import marker2 from "../images/map-marker-completed.svg";
 
 
 const myMarker = new Icon({ iconUrl: marker, iconSize: [32, 32] });
+const myIssueMarker = new Icon({ iconUrl: marker1, iconSize: [32, 32] });
+const myCompletedMarker = new Icon({ iconUrl: marker2, iconSize: [32, 32] });
 
 export default function DraggableMarker(props) {
     
@@ -152,7 +155,7 @@ export default function DraggableMarker(props) {
       eventHandlers={eventHandlers}
       position={position}
       ref={markerRef}
-      icon={myMarker}>
+      icon={status === 'completed' ? myCompletedMarker : (status === 'issue' ? myIssueMarker : myMarker)}>
       <Popup minWidth={90}>
 
         <span onClick={ () => toggleDraggable()}>
