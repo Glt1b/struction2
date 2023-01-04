@@ -6,7 +6,9 @@ import { ProjectMarkersContext } from "../contexts/ProjectMarkers.js"
 import "leaflet/dist/leaflet.css";
 import marker from "../images/map-marker.svg";
 import "leaflet/dist/leaflet.css";
-import { deleteMarker, patchMarker } from "../utils/api";
+import { deleteMarker, getImage, patchMarker } from "../utils/api";
+import ImageUploading from "react-images-uploading";
+
 
 
 const myMarker = new Icon({ iconUrl: marker, iconSize: [32, 32] });
@@ -28,6 +30,38 @@ export default function DraggableMarker(props) {
     const [comment, setComment] = useState(props.comment);
     
     const availableStatus = ['completed', 'inProgress', 'issue'];
+
+    // photo states
+    const [photosOpen, setPhotosOpen] = useState(false);
+    const [images, setImages] = useState([]);
+    const [photos, setPhotos] = useState(props.photos);
+    
+
+    const onChange = (imageList, addUpdateIndex) => {
+      // data for submit
+      console.log(imageList, addUpdateIndex);
+      setImages(imageList);
+    }
+
+    useEffect(() => {
+      if(photosOpen){
+        for (let photo of photos){
+          getImage(photo).then((result) => {
+            if(result){
+              const obj = {'data_url': 'data:image/jpeg;base64,'+result}
+              setImages([...images, obj])
+            }
+          })
+        }
+      }
+
+    }, [photosOpen])
+
+    /* When DynamoDB is working correctly we need to add:
+      - upload photo to storage
+      - delete photo from storage */
+
+
     
     // drag marker handlers
     const eventHandlers = useMemo(() => ({
@@ -61,7 +95,7 @@ export default function DraggableMarker(props) {
 
   // save markers details
   const updateMarker = () => {
-    const id = `${props.user}-${Date.now()}`
+    const id = props.id
         
         const obj = { [id]: { 
           "id": id,
@@ -180,7 +214,7 @@ export default function DraggableMarker(props) {
                className="input"
                value={measurements[1]}
                type="text"
-               onChange={((e) => {setComment([measurements[0], e.target.value])})}
+               onChange={((e) => {setMeasurements([measurements[0], e.target.value])})}
                 ></input><br/>
             <label><b>Width:</b></label><br/>
 
@@ -202,7 +236,51 @@ export default function DraggableMarker(props) {
       
         <button onClick={ () => {delMarker()
                                  alert('marker has been deleted')}}>Delete marker</button>
-      </Popup>
+        <br/>
+        {/* PHOTO GALLERY COMPONENTS */}
+
+        { !photosOpen ? (<button onClick={() => setPhotosOpen(true)}>Load gallery</button>) : (
+                <ImageUploading
+                multiple
+                value={images}
+                onChange={onChange}
+                
+                dataURLKey="data_url"
+              >
+                {({
+                  imageList,
+                  onImageUpload,
+                  onImageUpdate,
+                  onImageRemove,
+                  isDragging,
+                  dragProps,
+                }) => (
+                  // UI
+                  <div className="upload__image-wrapper">
+                    <button
+                      style={isDragging ? { color: 'red' } : undefined}
+                      onClick={onImageUpload}
+                      {...dragProps}
+                    >
+                      Upload photo
+                    </button>
+                    &nbsp;
+                    {imageList.map((image, index) => (
+                      <div key={index} >
+                        
+                        <img src={image['data_url']} alt=""/>
+  
+                        <div className="image-item__btn-wrapper">
+                          <button onClick={() => onImageRemove(index)}>Remove</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </ImageUploading>
+        )}
+
+        </Popup>
     </Marker>
   )
 }
