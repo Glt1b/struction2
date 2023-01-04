@@ -166,3 +166,10 @@ h6 {
   color: #f9632b;
   border: solid 2px #f9632b;
 }
+
+.leaflet-control-zoom.leaflet-bar.leaflet-control {
+  /* margin-right: 25px; */
+  position: relative;
+  right: 5vw;
+  top: 1vw;
+}
