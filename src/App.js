@@ -140,7 +140,6 @@ export default function App() {
                       value={location.name}
                       key={location.name}
                       onClick={() => {
-                        setMarkers([]);
                         setCurrentLocation(location.name);
                       }}
                     >
@@ -172,6 +171,7 @@ export default function App() {
             projectName={projectName}
             materials={materials}
             services={services}
+            image={currDrawing}
         />
       ) : null}
 
