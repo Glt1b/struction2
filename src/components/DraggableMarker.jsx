@@ -99,6 +99,8 @@ export default function DraggableMarker(props) {
   };
 
   const handleService = (item) => {
+    console.log("clicked");
+
     let updatedList = [...serviceUsed];
     if (!serviceUsed.includes(item)) {
       updatedList = [...serviceUsed, item];
@@ -120,19 +122,19 @@ export default function DraggableMarker(props) {
       ref={markerRef}
       icon={myMarker}
     >
-      <Popup minWidth={200}>
+      <Popup minWidth={320}>
         <div className="marker-form">
           <span onClick={() => toggleDraggable()}>
             {draggable ? "Save position" : "Change marker position"}
           </span>
 
           <div className="checkList">
-            <div className="title">
-              <b>Status:</b>
+            <div className="title" id="status">
+              <b>Status</b>
             </div>
-            <div className="list-container">
+            <div className="list-container" id="status-container">
               {availableStatus.map((item, index) => (
-                <div key={index}>
+                <div className="checkbox" key={index}>
                   <input
                     id={item}
                     value={item}
@@ -140,105 +142,120 @@ export default function DraggableMarker(props) {
                     checked={status.includes(item) ? true : false}
                     onChange={() => handleStatus(item)}
                   />
-                  <label for={item}>{item}</label>
+                  <label htmlFor={item}>{item}</label>
                 </div>
               ))}
             </div>
           </div>
 
-          <label>
-            <b>Number:</b>
-          </label>
+          <div className="text-input">
+            <div className="title">
+              <b>Number</b>
+            </div>
 
-          <input
-            className="input"
-            value={number}
-            type="text"
-            onChange={(e) => {
-              setNumber(e.target.value);
-            }}
-          ></input>
+            <input
+              className="input"
+              value={number}
+              type="text"
+              onChange={(e) => {
+                setNumber(e.target.value);
+              }}
+            ></input>
+          </div>
 
           <div className="checkList">
-            <div className="title">
-              <b>Material used:</b>
+            <div className="title" id="title-checkbox">
+              <b>Materials</b>
             </div>
             <div className="list-container">
               {props.materials.map((item, index) => (
-                <div key={index}>
+                <div key={index} className="checkbox">
                   <input
+                    id={item}
                     value={item}
                     type="checkbox"
                     checked={materialsUsed.includes(item) ? true : false}
                     onChange={() => handleMaterials(item)}
                   />
-                  <span>{item}</span>
+                  <label htmlFor={item}>{item}</label>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="checkList">
-            <div className="title">
-              <b>Services:</b>
+            <div className="title" id="title-checkbox">
+              <b>Services</b>
             </div>
-            <div className="list-container">
+            <div className="list-container" id="services-container">
               {props.services.map((item, index) => (
-                <div key={index}>
+                <div key={index} className="checkbox">
                   <input
                     value={item}
                     type="checkbox"
                     checked={serviceUsed.includes(item) ? true : false}
                     onChange={() => handleService(item)}
                   />
-                  <span>{item}</span>
+                  <label htmlFor={item}>{item}</label>
                 </div>
               ))}
             </div>
           </div>
 
-          <label>
-            <b>Height:</b>
-          </label>
+          <div className="text-input">
+            <div className="title">
+              <label htmlFor="height">
+                <b>Height</b>
+              </label>
+            </div>
 
-          <input
-            className="input"
-            value={measurements[1]}
-            type="text"
-            onChange={(e) => {
-              setComment([measurements[0], e.target.value]);
-            }}
-          ></input>
+            <input
+              id="height"
+              className="input"
+              value={measurements[1]}
+              type="text"
+              onChange={(e) => {
+                setComment([measurements[0], e.target.value]);
+              }}
+            ></input>
+            <div className="title">
+              <label htmlFor="width">
+                <b>Width</b>
+              </label>
+            </div>
+            <input
+              id="width"
+              className="input"
+              value={measurements[0]}
+              type="text"
+              onChange={(e) => {
+                setMeasurements([e.target.value, measurements[1]]);
+              }}
+            ></input>
+          </div>
 
-          <label>
-            <b>Width:</b>
-          </label>
+          <div className="text-input" id="comment-container">
+            <div className="title">
+              <label htmlFor="comment">
+                <b>Comment</b>
+              </label>
+            </div>
 
-          <input
-            className="input"
-            value={measurements[0]}
-            type="text"
-            onChange={(e) => {
-              setMeasurements([e.target.value, measurements[1]]);
-            }}
-          ></input>
-
-          <label>
-            <b>Comment:</b>
-          </label>
-
-          <input
-            className="input"
-            value={comment}
-            type="text"
-            onChange={(e) => {
-              setComment(e.target.value);
-            }}
-          ></input>
+            <input
+              id="comment"
+              className="input"
+              value={comment}
+              type="text"
+              onChange={(e) => {
+                setComment(e.target.value);
+              }}
+            ></input>
+          </div>
 
           <button onClick={() => updateMarker()}>Update</button>
 
           <button
+            id="delete-btn"
             onClick={() => {
               delMarker();
               alert("marker has been deleted");

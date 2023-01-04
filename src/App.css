@@ -100,6 +100,10 @@ h6 {
   color: #265896;
   padding: 25px;
   z-index: 2;
+  -webkit-box-shadow: 0 8px 15px 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 8px 15px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 15px 1px rgba(0, 0, 0, 0.25);
+  z-index: 2;
 }
 
 .struction-logo {
@@ -124,7 +128,7 @@ h6 {
   top: 14vh;
   bottom: 0;
   width: 100vw;
-  height: 90%;
+  height: 86%;
   z-index: 1;
 }
 
@@ -135,20 +139,10 @@ h6 {
   box-shadow: 10px 11px 0.5px 1px rgba(0, 0, 0, 0.35);
 }
 
-.floorButton {
-  z-index: 100;
-  background-color: #fff;
-  color: #000;
-  position: absolute;
-  top: 0;
-  left: 40%;
-  right: 40%;
-  margin: auto;
-}
-
 .create-btn {
   position: fixed;
-  bottom: 2em;
+  top: 11.5vh;
+  right: 6vw;
   width: 11em;
   z-index: 400;
   border-radius: 25px;
@@ -171,23 +165,188 @@ h6 {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  padding: none;
-  margin: none;
-  width: 300px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  width: 260px;
   gap: 5px;
 }
 
-INPUT[type="checkbox"] {
-  margin-right: 2.5px;
+.marker-form button {
+  width: 150px;
+  border: solid 2px rgba(38, 88, 150, 0.75);
+  border-radius: 25px;
+  color: rgba(38, 88, 150, 0.75);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.marker-form button:hover {
+  background-color: #265896;
+  color: #fff;
+  border: solid 2px #265896;
+}
+
+#delete-btn {
+  background-color: #f92b2b;
+  border: solid 2px #f92b2b;
+  color: #fff;
+}
+
+#delete-btn:hover {
+  background-color: #000;
+  border: solid 2px #f92b2b;
+  color: #f92b2b;
+}
+
+.checkList {
+  width: 260px;
 }
 
 .list-container {
   text-transform: capitalize;
-  font-size: 15px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  line-height: 1;
+  padding: 0;
+}
+
+.leaflet-popup-content-wrapper {
+  background: rgb(210, 222, 235);
+  background: linear-gradient(
+    180deg,
+    rgba(210, 222, 235, 1) 82%,
+    rgba(210, 222, 235, 0) 100%
+  );
+
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.leaflet-popup-content {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  width: 100px;
+}
+
+.input {
+  appearance: none;
+  border-radius: 5px;
+  border: solid 1px #fff;
+  width: 100%;
+}
+
+.title {
+  font-family: "Roboto";
+  color: rgba(38, 88, 150, 0.75);
+  font-size: 12px;
+}
+
+#title-checkbox {
+  margin-bottom: -15px;
+  margin-top: 5px;
+}
+
+#status {
+  margin-top: 5px;
+  background-color: #d2deeb;
+  margin-bottom: -15px;
+}
+
+#status-container {
+  border-bottom: solid 2px #fff;
+  padding-bottom: 20px;
+  margin-bottom: 5px;
+}
+
+#services-container {
+  border-bottom: solid 2px #fff;
+  padding-bottom: 25px;
+  margin-bottom: 5px;
+}
+
+.text-input {
+  display: flex;
   gap: 5px;
+  width: 100%;
+  padding: 0 0 10px 0;
+  border-bottom: solid 2px #fff;
+  align-items: center;
+}
+
+#comment-container {
+  padding-top: 5px;
+}
+/*-------------EXPERIMENTAL CHECKBOXES----------------*/
+.checkbox {
+  text-transform: capitalize;
+  font-size: 10px;
+  color: #265896;
+  position: relative;
+  width: 33%;
+  padding: 0;
+}
+
+.checkbox input[type="checkbox"] {
+  opacity: 0.00000001;
+  transform: translateX(9px) translateY(25px);
+}
+.checkbox label {
+  position: relative;
+}
+.checkbox label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 6px;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.28s ease;
+  border-radius: 3px;
+  border: 2px solid #265896;
+}
+.checkbox label:after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 5px;
+  border-bottom: 2px solid #265896;
+  border-left: 2px solid #265896;
+  -webkit-transform: rotate(-45deg) scale(0);
+  transform: rotate(-45deg) scale(0);
+  transition: transform ease 0.25s;
+  will-change: transform;
+  position: absolute;
+  top: 12px;
+  left: 10px;
+}
+.checkbox input[type="checkbox"]:checked ~ label::before {
+  color: #265896;
+}
+
+.checkbox input[type="checkbox"]:checked ~ label::after {
+  -webkit-transform: rotate(-45deg) scale(1);
+  transform: rotate(-45deg) scale(1);
+}
+
+.checkbox label {
+  min-height: 28px;
+  display: flex;
+  padding-left: 26px;
+  margin-bottom: -10px;
+  font-weight: normal;
+  cursor: pointer;
+  vertical-align: sub;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.checkbox input[type="checkbox"]:focus + label::before {
+  outline: 0;
 }
