@@ -166,3 +166,12 @@ h6 {
   color: #f9632b;
   border: solid 2px #f9632b;
 }
+
+.fullScreenImg {
+  width: 100vh
+}
+
+.smallImg {
+  width: 100vh
+}
+
