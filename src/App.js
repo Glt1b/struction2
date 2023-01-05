@@ -14,6 +14,7 @@ import {
   sidebarClasses,
 } from "react-pro-sidebar";
 import structionLogo from "./images/structionLogo.svg";
+import structionHeaderLogo from "./images/struction-logo-header.svg";
 
 export default function App() {
   // worker state hardcoded and to be changed later
@@ -110,6 +111,11 @@ export default function App() {
         ) : (
           <p>Welcome {user.key}, choose your project</p>
         )}
+        <img
+          className="struction-logo--header"
+          src={structionHeaderLogo}
+          alt="struction logo"
+        />
       </header>
       <Sidebar>
         <Menu>

@@ -91,9 +91,9 @@ h6 {
   background-color: #d2deeb;
   min-height: 14vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  align-items: left;
+  justify-content: space-between;
   font-size: calc(10px + 2vmin);
   font-weight: 500;
   line-height: 0.95;
@@ -113,6 +113,13 @@ h6 {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 10em;
+}
+
+.struction-logo--header {
+  /* position: fixed;
+  top: 0.5em;
+  right: 1em; */
+  width: 7rem;
 }
 
 .dropdown {
@@ -142,7 +149,7 @@ h6 {
 
 .create-btn {
   position: fixed;
-  top: 11.5vh;
+  bottom: 5vh;
   right: 6vw;
   width: 11em;
   z-index: 400;

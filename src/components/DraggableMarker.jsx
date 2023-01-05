@@ -307,8 +307,9 @@ export default function DraggableMarker(props) {
               alert("marker has been deleted");
             }}
           >
-            Delete marker
+            Delete Marker
           </button>
+
           {/* PHOTO GALLERY COMPONENTS */}
 
           {!photosOpen ? (
