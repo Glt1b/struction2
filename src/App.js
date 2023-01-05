@@ -157,7 +157,7 @@ export default function App() {
 
             <MenuItem> Manager Dashboard </MenuItem>
             <MenuItem> Offilne mode </MenuItem>
-            <MenuItem> Loguot </MenuItem>
+            <MenuItem> Logout </MenuItem>
           </SubMenu>
         </Menu>
       </Sidebar>
