@@ -160,14 +160,11 @@ export default function DraggableMarker(props) {
           : myMarker
       }
     >
-
       <Popup minWidth={320}>
-
         <div className="marker-form">
           <span onClick={() => toggleDraggable()}>
             {draggable ? "Save position" : "Change marker position"}
           </span>
-
 
           <div className="checkList">
             <div className="title" id="status">
@@ -176,7 +173,6 @@ export default function DraggableMarker(props) {
             <div className="list-container" id="status-container">
               {availableStatus.map((item, index) => (
                 <div className="checkbox" key={index}>
-
                   <input
                     id={item}
                     value={item}
@@ -251,7 +247,6 @@ export default function DraggableMarker(props) {
               <label htmlFor="height">
                 <b>Height</b>
               </label>
-
             </div>
             <div className="list-container">
               {props.materials.map((item, index) => (
@@ -267,119 +262,117 @@ export default function DraggableMarker(props) {
               ))}
             </div>
           </div>
-            <input
-              id="height"
-              className="input"
-              value={measurements[1]}
-              type="text"
-              onChange={(e) => {
-                setMeasurements([measurements[0], e.target.value]);
-              }}
-            ></input>
-            <label>
-              <b>Width:</b>
-            </label>
-
-            <input
-              id="width"
-              className="input"
-              value={measurements[0]}
-              type="text"
-              onChange={(e) => {
-                setMeasurements([e.target.value, measurements[1]]);
-              }}
-            ></input>
-          </div>
-
-          <div className="text-input" id="comment-container">
-            <div className="title">
-              <label htmlFor="comment">
-                <b>Comment</b>
-              </label>
-            </div>
-
-            <input
-              id="comment"
-              className="input"
-              value={comment}
-              type="text"
-              onChange={(e) => {
-                setComment(e.target.value);
-              }}
-            ></input>
-          </div>
-          <button onClick={() => updateMarker()}>Update</button>
-
-          <button
-            id="delete-btn"
-
-            onClick={() => {
-              delMarker();
-              alert("marker has been deleted");
+          <input
+            id="height"
+            className="input"
+            value={measurements[1]}
+            type="text"
+            onChange={(e) => {
+              setMeasurements([measurements[0], e.target.value]);
             }}
-          >
-            Delete marker
-          </button>
-          {/* PHOTO GALLERY COMPONENTS */}
+          ></input>
+          <label>
+            <b>Width:</b>
+          </label>
 
-          {!photosOpen ? (
-            <button onClick={() => setPhotosOpen(true)}>Load gallery</button>
-          ) : (
-            <ImageUploading
-              multiple
-              value={images}
-              onChange={onChange}
-              dataURLKey="data_url"
-            >
-              {({
-                imageList,
-                onImageUpload,
-                onImageUpdate,
-                onImageRemove,
-                isDragging,
-                dragProps,
-              }) => (
-                // UI
-                <div className="upload__image-wrapper">
-                  <button
-                    style={isDragging ? { color: "red" } : undefined}
-                    onClick={onImageUpload}
-                    {...dragProps}
-                  >
-                    Upload photo
-                  </button>
-                  &nbsp;
-                  {imageList.map((image, index) => (
-                    <div key={index}>
-                      <span
-                        onClick={() => {
-                          setZoom(image["data_url"]);
-                          return (
-                            <NewWindow>
-                              <img src={zoom} alt="" />
-                            </NewWindow>
-                          );
-                        }}
-                      >
-                        <img src={image["data_url"]} alt="" />
-                        {zoom !== "" ? (
+          <input
+            id="width"
+            className="input"
+            value={measurements[0]}
+            type="text"
+            onChange={(e) => {
+              setMeasurements([e.target.value, measurements[1]]);
+            }}
+          ></input>
+        </div>
+
+        <div className="text-input" id="comment-container">
+          <div className="title">
+            <label htmlFor="comment">
+              <b>Comment</b>
+            </label>
+          </div>
+
+          <input
+            id="comment"
+            className="input"
+            value={comment}
+            type="text"
+            onChange={(e) => {
+              setComment(e.target.value);
+            }}
+          ></input>
+        </div>
+        <button onClick={() => updateMarker()}>Update</button>
+
+        <button
+          id="delete-btn"
+          onClick={() => {
+            delMarker();
+            alert("marker has been deleted");
+          }}
+        >
+          Delete marker
+        </button>
+        {/* PHOTO GALLERY COMPONENTS */}
+
+        {!photosOpen ? (
+          <button onClick={() => setPhotosOpen(true)}>Load gallery</button>
+        ) : (
+          <ImageUploading
+            multiple
+            value={images}
+            onChange={onChange}
+            dataURLKey="data_url"
+          >
+            {({
+              imageList,
+              onImageUpload,
+              onImageUpdate,
+              onImageRemove,
+              isDragging,
+              dragProps,
+            }) => (
+              // UI
+              <div className="upload__image-wrapper">
+                <button
+                  style={isDragging ? { color: "red" } : undefined}
+                  onClick={onImageUpload}
+                  {...dragProps}
+                >
+                  Upload photo
+                </button>
+                &nbsp;
+                {imageList.map((image, index) => (
+                  <div key={index}>
+                    <span
+                      onClick={() => {
+                        setZoom(image["data_url"]);
+                        return (
                           <NewWindow>
                             <img src={zoom} alt="" />
                           </NewWindow>
-                        ) : null}
-                      </span>
-                      <div className="image-item__btn-wrapper">
-                        <button onClick={() => onImageRemove(index)}>
-                          Remove
-                        </button>
-                      </div>
+                        );
+                      }}
+                    >
+                      <img src={image["data_url"]} alt="" />
+                      {zoom !== "" ? (
+                        <NewWindow>
+                          <img src={zoom} alt="" />
+                        </NewWindow>
+                      ) : null}
+                    </span>
+                    <div className="image-item__btn-wrapper">
+                      <button onClick={() => onImageRemove(index)}>
+                        Remove
+                      </button>
                     </div>
-                  ))}
-                </div>
-              )}
-            </ImageUploading>
-          )}
-        </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </ImageUploading>
+        )}
       </Popup>
     </Marker>
   );
