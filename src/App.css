@@ -191,3 +191,10 @@ INPUT[type="checkbox"] {
   line-height: 1;
   gap: 5px;
 }
+
+.leaflet-control-zoom.leaflet-bar.leaflet-control {
+  /* margin-right: 25px; */
+  position: relative;
+  right: 5vw;
+  top: 1vw;
+}

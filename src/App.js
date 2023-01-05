@@ -139,7 +139,6 @@ export default function App() {
                       value={location.name}
                       key={location.name}
                       onClick={() => {
-                        setMarkers([]);
                         setCurrentLocation(location.name);
                       }}
                     >

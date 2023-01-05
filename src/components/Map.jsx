@@ -1,5 +1,5 @@
 import { React, useState, useContext, useEffect } from "react";
-import { MapContainer, ImageOverlay } from "react-leaflet";
+import { MapContainer, ImageOverlay, ZoomControl } from "react-leaflet";
 import { MarkersContext } from "../contexts/Markers.js";
 import { ProjectMarkersContext } from "../contexts/ProjectMarkers.js";
 import { postMarker } from "../utils/api.js";
@@ -119,6 +119,8 @@ export default function Map(props) {
         </ImageOverlay>
 
         <MarkerLocator />
+        <ZoomControl position="topright" />
+
         <button className="create-btn" onClick={() => setCreationMode(true)}>
           {creationMode ? "Click on Map" : "Create new marker"}
         </button>
