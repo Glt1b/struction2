@@ -5,7 +5,6 @@ import { ProjectMarkersContext } from "../contexts/ProjectMarkers.js";
 import { postMarker } from "../utils/api.js";
 import { useMapEvents } from "react-leaflet/hooks";
 import DraggableMarker from "./DraggableMarker";
-import "leaflet/dist/leaflet.css";
 
 const L = window["L"];
 
