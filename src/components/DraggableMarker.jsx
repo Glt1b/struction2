@@ -8,7 +8,8 @@ import { deleteMarker, getImage, patchMarker } from "../utils/api";
 import ImageUploading from "react-images-uploading";
 import NewWindow from "react-new-window";
 import marker from "../images/map-marker.svg";
-
+import marker1 from "../images/map-marker-issue.svg";
+import marker2 from "../images/map-marker-complete.svg";
 const myMarker = new Icon({ iconUrl: marker, iconSize: [32, 32] });
 const myIssueMarker = new Icon({ iconUrl: marker1, iconSize: [32, 32] });
 const myCompletedMarker = new Icon({ iconUrl: marker2, iconSize: [32, 32] });
@@ -131,8 +132,6 @@ export default function DraggableMarker(props) {
   };
 
   const handleService = (item) => {
-    console.log("clicked");
-
     let updatedList = [...serviceUsed];
     if (!serviceUsed.includes(item)) {
       updatedList = [...serviceUsed, item];
@@ -229,6 +228,7 @@ export default function DraggableMarker(props) {
               {props.services.map((item, index) => (
                 <div key={index} className="checkbox">
                   <input
+                    id={item}
                     value={item}
                     type="checkbox"
                     checked={serviceUsed.includes(item) ? true : false}

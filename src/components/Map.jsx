@@ -119,7 +119,7 @@ export default function Map(props) {
         </ImageOverlay>
 
         <MarkerLocator />
-        <ZoomControl position="topright" />
+        <ZoomControl position="bottomleft" />
 
         <button className="create-btn" onClick={() => setCreationMode(true)}>
           {creationMode ? "Click on Map" : "Create new marker"}

@@ -353,6 +353,6 @@ h6 {
 
 .leaflet-control-zoom.leaflet-bar.leaflet-control {
   position: relative;
-  right: 5vw;
-  top: 1vw;
+  left: 1vw;
+  bottom: 1vw;
 }
