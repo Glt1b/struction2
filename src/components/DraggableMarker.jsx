@@ -148,7 +148,7 @@ export default function DraggableMarker(props) {
 
   return (
     <Marker
-      draggable={draggable}
+      draggable={true}
       eventHandlers={eventHandlers}
       position={position}
       ref={markerRef}
@@ -160,14 +160,12 @@ export default function DraggableMarker(props) {
           : myMarker
       }
     >
-
       <Popup minWidth={320}>
-
         <div className="marker-form">
-          <span onClick={() => toggleDraggable()}>
-            {draggable ? "Save position" : "Change marker position"}
-          </span>
-
+          {/*made marker draggable dont need to change status to move as we dont have different user roles*/}
+          {/* <button onClick={() => toggleDraggable()}>
+            {draggable ? "Save Position" : "Move Marker"}
+          </button> */}
 
           <div className="checkList">
             <div className="title" id="status">
@@ -176,7 +174,6 @@ export default function DraggableMarker(props) {
             <div className="list-container" id="status-container">
               {availableStatus.map((item, index) => (
                 <div className="checkbox" key={index}>
-
                   <input
                     id={item}
                     value={item}
@@ -251,22 +248,7 @@ export default function DraggableMarker(props) {
               <label htmlFor="height">
                 <b>Height</b>
               </label>
-
             </div>
-            <div className="list-container">
-              {props.materials.map((item, index) => (
-                <div key={index}>
-                  <input
-                    value={item}
-                    type="checkbox"
-                    checked={materialsUsed.includes(item) ? true : false}
-                    onChange={() => handleMaterials(item)}
-                  />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
             <input
               id="height"
               className="input"
@@ -276,10 +258,11 @@ export default function DraggableMarker(props) {
                 setMeasurements([measurements[0], e.target.value]);
               }}
             ></input>
-            <label>
-              <b>Width:</b>
-            </label>
-
+            <div className="title">
+              <label htmlFor="width">
+                <b>Width</b>
+              </label>
+            </div>
             <input
               id="width"
               className="input"
@@ -308,11 +291,17 @@ export default function DraggableMarker(props) {
               }}
             ></input>
           </div>
-          <button onClick={() => updateMarker()}>Update</button>
+          <button
+            onClick={() => {
+              updateMarker();
+              alert("marker has been updated");
+            }}
+          >
+            Update
+          </button>
 
           <button
             id="delete-btn"
-
             onClick={() => {
               delMarker();
               alert("marker has been deleted");
