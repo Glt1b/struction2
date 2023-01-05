@@ -6,9 +6,8 @@ import { ProjectMarkersContext } from "../contexts/ProjectMarkers.js";
 import "leaflet/dist/leaflet.css";
 import { deleteMarker, getImage, patchMarker } from "../utils/api";
 import ImageUploading from "react-images-uploading";
-import NewWindow from 'react-new-window'
+import NewWindow from "react-new-window";
 import marker from "../images/map-marker.svg";
-
 
 const myMarker = new Icon({ iconUrl: marker, iconSize: [32, 32] });
 const myIssueMarker = new Icon({ iconUrl: marker1, iconSize: [32, 32] });
@@ -22,51 +21,49 @@ export default function DraggableMarker(props) {
   );
   const markerRef = useRef(null);
 
-    // markers details states
-    const [position, setPosition] = useState(props.position);
-    const [number, setNumber] = useState(props.number);
-    const [status, setStatus] = useState(props.status);
-    const [materialsUsed, setMaterialUsed] = useState(props.materialsUsed);
-    const [measurements, setMeasurements] = useState(props.measurements);
-    const [serviceUsed, setServiceUsed] = useState(props.service);
-    const [comment, setComment] = useState(props.comment);
-    
-    const availableStatus = ['completed', 'inProgress', 'issue'];
+  // markers details states
+  const [position, setPosition] = useState(props.position);
+  const [number, setNumber] = useState(props.number);
+  const [status, setStatus] = useState(props.status);
+  const [materialsUsed, setMaterialUsed] = useState(props.materialsUsed);
+  const [measurements, setMeasurements] = useState(props.measurements);
+  const [serviceUsed, setServiceUsed] = useState(props.service);
+  const [comment, setComment] = useState(props.comment);
 
-    // photo states
-    const [photosOpen, setPhotosOpen] = useState(false);
-    const [images, setImages] = useState([]);
-    const [photos, setPhotos] = useState(props.photos);
-    const [zoom, setZoom] = useState('')
+  const availableStatus = ["completed", "inProgress", "issue"];
 
-    const onChange = (imageList, addUpdateIndex) => {
-      // data for submit
-      console.log(imageList, addUpdateIndex);
-      setImages(imageList);
-    }
+  // photo states
+  const [photosOpen, setPhotosOpen] = useState(false);
+  const [images, setImages] = useState([]);
+  const [photos, setPhotos] = useState(props.photos);
+  const [zoom, setZoom] = useState("");
 
-    useEffect(() => {
-      if(photosOpen){
-        for (let photo of photos){
-          getImage(photo).then((result) => {
-            if(result){
-              const obj = {'data_url': 'data:image/jpeg;base64,'+result}
-              setImages([...images, obj])
-            }
-          })
-        }
+  const onChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    setImages(imageList);
+  };
+
+  useEffect(() => {
+    if (photosOpen) {
+      for (let photo of photos) {
+        getImage(photo).then((result) => {
+          if (result) {
+            const obj = { data_url: "data:image/jpeg;base64," + result };
+            setImages([...images, obj]);
+          }
+        });
       }
+    }
+  }, [photosOpen]);
 
-    }, [photosOpen])
-
-    /* When DynamoDB is working correctly we need to add:
+  /* When DynamoDB is working correctly we need to add:
       - upload photo to storage
       - delete photo from storage */
 
-
-    
-    // drag marker handlers
-    const eventHandlers = useMemo(() => ({
+  // drag marker handlers
+  const eventHandlers = useMemo(
+    () => ({
       dragend() {
         const marker = markerRef.current;
         if (marker != null) {
@@ -97,22 +94,24 @@ export default function DraggableMarker(props) {
 
   // save markers details
   const updateMarker = () => {
-    const id = props.id
-        
-        const obj = { [id]: { 
-          "id": id,
-          "number": number,
-          "status": status,
-          "location": props.currentLocation,
-          "locationOnDrawing": position,
-          "materialsUsed": materialsUsed,
-          "measurements": measurements,
-          "service": serviceUsed,
-          "completedBy": "",
-          "comment": comment,
-          "photos": [],
-          "photos_after": []
-      }}
+    const id = props.id;
+
+    const obj = {
+      [id]: {
+        id: id,
+        number: number,
+        status: status,
+        location: props.currentLocation,
+        locationOnDrawing: position,
+        materialsUsed: materialsUsed,
+        measurements: measurements,
+        service: serviceUsed,
+        completedBy: "",
+        comment: comment,
+        photos: [],
+        photos_after: [],
+      },
+    };
 
     patchMarker(props.projectName, props.id, obj).then((response) => {
       setProjectMarkers(response.data.markers);
@@ -153,15 +152,19 @@ export default function DraggableMarker(props) {
       eventHandlers={eventHandlers}
       position={position}
       ref={markerRef}
-      icon={status === 'completed' ? myCompletedMarker : (status === 'issue' ? myIssueMarker : myMarker)}>
+      icon={
+        status === "completed"
+          ? myCompletedMarker
+          : status === "issue"
+          ? myIssueMarker
+          : myMarker
+      }
+    >
       <Popup minWidth={320}>
-      <div className="marker-form">
-        <span onClick={ () => toggleDraggable()}>
-          {draggable
-            ? 'Save position'
-            : 'Change marker position'}
-        </span>
-
+        <div className="marker-form">
+          <span onClick={() => toggleDraggable()}>
+            {draggable ? "Save position" : "Change marker position"}
+          </span>
 
           <div className="checkList">
             <div className="title" id="status">
@@ -245,13 +248,17 @@ export default function DraggableMarker(props) {
             </div>
 
             <input
-            id = "height"
-               className="input"
-               value={measurements[1]}
-               type="text"
-               onChange={((e) => {setMeasurements([measurements[0], e.target.value])})}
-                ></input>
-            <label><b>Width:</b></label>
+              id="height"
+              className="input"
+              value={measurements[1]}
+              type="text"
+              onChange={(e) => {
+                setMeasurements([measurements[0], e.target.value]);
+              }}
+            ></input>
+            <label>
+              <b>Width:</b>
+            </label>
 
             <input
               id="width"
@@ -272,71 +279,86 @@ export default function DraggableMarker(props) {
             </div>
 
             <input
-                   id="comment"
-               className="input"
-               value={comment}
-               type="text"
-               onChange={((e) => {setComment(e.target.value)})}
-                ></input>
-            <button onClick={() => updateMarker()}>Update</button>
-      
-        <button id="delete-btn"
-        onClick={ () => {delMarker()
-                                 alert('marker has been deleted')}}>Delete marker</button>
-                                         {/* PHOTO GALLERY COMPONENTS */}
+              id="comment"
+              className="input"
+              value={comment}
+              type="text"
+              onChange={(e) => {
+                setComment(e.target.value);
+              }}
+            ></input>
+          </div>
+          <button onClick={() => updateMarker()}>Update</button>
 
-        { !photosOpen ? (<button onClick={() => setPhotosOpen(true)}>Load gallery</button>) : (
-                <ImageUploading
-                multiple
-                value={images}
-                onChange={onChange}
-                
-                dataURLKey="data_url"
-              >
-                {({
-                  imageList,
-                  onImageUpload,
-                  onImageUpdate,
-                  onImageRemove,
-                  isDragging,
-                  dragProps,
-                }) => (
-                  // UI
-                  <div className="upload__image-wrapper">
-                    <button
-                      style={isDragging ? { color: 'red' } : undefined}
-                      onClick={onImageUpload}
-                      {...dragProps}
-                    >
-                      Upload photo
-                    </button>
-                    &nbsp;
-                    {imageList.map((image, index) => (
-                      <div key={index} >
-                        <span onClick={() => {setZoom(image['data_url'])
-                                              return (<NewWindow>
-                                                <img src={zoom} alt=""/>
-                                                </NewWindow>)}}>
-                        <img src={image['data_url']} alt=""/>
-                        {zoom !== '' ? (
-                        <NewWindow>
-                        <img src={zoom} alt=""/>
-                        </NewWindow>
+          <button
+            id="delete-btn"
+            onClick={() => {
+              delMarker();
+              alert("marker has been deleted");
+            }}
+          >
+            Delete marker
+          </button>
+          {/* PHOTO GALLERY COMPONENTS */}
+
+          {!photosOpen ? (
+            <button onClick={() => setPhotosOpen(true)}>Load gallery</button>
+          ) : (
+            <ImageUploading
+              multiple
+              value={images}
+              onChange={onChange}
+              dataURLKey="data_url"
+            >
+              {({
+                imageList,
+                onImageUpload,
+                onImageUpdate,
+                onImageRemove,
+                isDragging,
+                dragProps,
+              }) => (
+                // UI
+                <div className="upload__image-wrapper">
+                  <button
+                    style={isDragging ? { color: "red" } : undefined}
+                    onClick={onImageUpload}
+                    {...dragProps}
+                  >
+                    Upload photo
+                  </button>
+                  &nbsp;
+                  {imageList.map((image, index) => (
+                    <div key={index}>
+                      <span
+                        onClick={() => {
+                          setZoom(image["data_url"]);
+                          return (
+                            <NewWindow>
+                              <img src={zoom} alt="" />
+                            </NewWindow>
+                          );
+                        }}
+                      >
+                        <img src={image["data_url"]} alt="" />
+                        {zoom !== "" ? (
+                          <NewWindow>
+                            <img src={zoom} alt="" />
+                          </NewWindow>
                         ) : null}
-                        
-                        </span>
-                        <div className="image-item__btn-wrapper">
-                          <button onClick={() => onImageRemove(index)}>Remove</button>
-                        </div>
+                      </span>
+                      <div className="image-item__btn-wrapper">
+                        <button onClick={() => onImageRemove(index)}>
+                          Remove
+                        </button>
                       </div>
-                      
-                    ))}
-                  </div>
-                )}
-              </ImageUploading>
-        )}
-
-                                       </div >
+                    </div>
+                  ))}
+                </div>
+              )}
+            </ImageUploading>
+          )}
+        </div>
       </Popup>
     </Marker>
   );
