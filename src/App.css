@@ -378,3 +378,8 @@ INPUT[type="checkbox"] {
   left: 1vw;
   bottom: 1vw;
 }
+
+.marker-form {
+  height: 400px;
+  overflow: scroll;
+}

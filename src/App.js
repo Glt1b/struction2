@@ -24,7 +24,7 @@ export default function App() {
       mail: "mail@gmail.com",
       role: "worker",
       password: "worker123",
-      projects: ["apartments_unit", "medical_centre"],
+      projects: ["apartments_unit_", "medical_centre_"],
     },
   });
 

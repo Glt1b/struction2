@@ -11,6 +11,8 @@ import marker from "../images/map-marker.svg";
 import marker1 from "../images/map-marker-issue.svg";
 import marker2 from "../images/map-marker-complete.svg";
 
+
+
 const myMarker = new Icon({ iconUrl: marker, iconSize: [32, 32] });
 const myIssueMarker = new Icon({ iconUrl: marker1, iconSize: [32, 32] });
 const myCompletedMarker = new Icon({ iconUrl: marker2, iconSize: [32, 32] });
@@ -161,7 +163,9 @@ export default function DraggableMarker(props) {
       }
     >
       <Popup minWidth={320}>
+
         <div className="marker-form">
+          <div>
           {/*made marker draggable dont need to change status to move as we dont have different user roles*/}
           {/* <button onClick={() => toggleDraggable()}>
             {draggable ? "Save Position" : "Move Marker"}
@@ -369,7 +373,7 @@ export default function DraggableMarker(props) {
               )}
             </ImageUploading>
           )}
-        </div>
+        </div></div>
       </Popup>
     </Marker>
   );
