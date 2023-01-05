@@ -10,6 +10,7 @@ import NewWindow from "react-new-window";
 import marker from "../images/map-marker.svg";
 import marker1 from "../images/map-marker-issue.svg";
 import marker2 from "../images/map-marker-complete.svg";
+
 const myMarker = new Icon({ iconUrl: marker, iconSize: [32, 32] });
 const myIssueMarker = new Icon({ iconUrl: marker1, iconSize: [32, 32] });
 const myCompletedMarker = new Icon({ iconUrl: marker2, iconSize: [32, 32] });
@@ -159,11 +160,14 @@ export default function DraggableMarker(props) {
           : myMarker
       }
     >
+
       <Popup minWidth={320}>
+
         <div className="marker-form">
           <span onClick={() => toggleDraggable()}>
             {draggable ? "Save position" : "Change marker position"}
           </span>
+
 
           <div className="checkList">
             <div className="title" id="status">
@@ -172,6 +176,7 @@ export default function DraggableMarker(props) {
             <div className="list-container" id="status-container">
               {availableStatus.map((item, index) => (
                 <div className="checkbox" key={index}>
+
                   <input
                     id={item}
                     value={item}
@@ -179,6 +184,7 @@ export default function DraggableMarker(props) {
                     checked={status.includes(item) ? true : false}
                     onChange={() => handleStatus(item)}
                   />
+
                   <label htmlFor={item}>{item}</label>
                 </div>
               ))}
@@ -245,8 +251,22 @@ export default function DraggableMarker(props) {
               <label htmlFor="height">
                 <b>Height</b>
               </label>
-            </div>
 
+            </div>
+            <div className="list-container">
+              {props.materials.map((item, index) => (
+                <div key={index}>
+                  <input
+                    value={item}
+                    type="checkbox"
+                    checked={materialsUsed.includes(item) ? true : false}
+                    onChange={() => handleMaterials(item)}
+                  />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
             <input
               id="height"
               className="input"
@@ -292,6 +312,7 @@ export default function DraggableMarker(props) {
 
           <button
             id="delete-btn"
+
             onClick={() => {
               delMarker();
               alert("marker has been deleted");
